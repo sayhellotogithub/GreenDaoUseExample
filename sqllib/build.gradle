@@ -1,0 +1,48 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.greenrobot.greendao'
+
+buildscript{
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.2'
+    }
+}
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+greendao{
+    schemaVersion 10 // 数据库版本号
+    daoPackage  'com.iblogstreet.sqllib.greendao'//greenDao 自动生成的代码保存的包名
+    targetGenDir   'src/main/java' //自动生成的代码存储的路径，默认是 build/generated/source/greendao.
+    generateTests false //true的时候自动生成测试单元
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api 'org.greenrobot:greendao:3.2.2'
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
